@@ -29,7 +29,7 @@ export default function App() {
             <img src="/assets/profile.jpg" alt="profile" class="profilePicture" />
           </div>
 
-          <a href="https://lekan.vercel.app" target="_blank" rel="noopener norefferer" className="portfolioButton">Check out my portfolio</a>
+          <a href="https://lekan.vercel.app" target="_blank" rel="noopener noreferrer" className="portfolioButton">Check out my portfolio</a>
         </div>
 
         <div className="bio">
