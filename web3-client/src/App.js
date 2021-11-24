@@ -108,8 +108,6 @@ export default function App() {
     checkIfWalletIsConnected();
   }, []);
 
-  const wave = () => {};
-
   return (
     <div className="mainContainer">
       <div className="dataContainer">
