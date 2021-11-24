@@ -16,19 +16,57 @@
   text-align: center;
   font-size: 32px;
   font-weight: 600;
+  margin-bottom: 20px;
+  color: #66FCF1;
+}
+
+.flexCenter {
+  display: grid;
+  place-content: center;
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  border: 2px solid #45A29E;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.profilePicture {
+  width: 225px;
+  height: 225px;
+  border-radius: 50%;
+}
+
+.portfolioButton {
+  text-decoration: none;
+  text-align: center; 
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #1f2833;
+  color: #66FCF1;
 }
 
 .bio {
   text-align: center;
-  color: gray;
+  color: #C5C6C7;
   margin-top: 16px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.bio > span {
+  color: #66FCF1;
 }
 
 .waveButton {
   cursor: pointer;
-  margin-top: 16px;
+  margin: 16px 15px 0 15px;
   padding: 8px;
   border: 0;
   border-radius: 5px;
-  
+  background-color: #1f2833;
+  color: #66FCF1;
 }
