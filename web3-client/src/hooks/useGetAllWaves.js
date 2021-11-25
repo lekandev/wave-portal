@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import WavePortal from "../utils/WavePortal.json";
 
-const useWave = () => {
+const useGetAllWaves = () => {
   /*
    * All state property to store all waves
    */
@@ -15,41 +15,6 @@ const useWave = () => {
    * Create a variable here that references the abi content!
    */
   const contractABI = WavePortal.abi;
-
-  const wave = async () => {
-    try {
-      const { ethereum } = window;
-
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const wavePortalContract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          signer
-        );
-
-        let count = await wavePortalContract.getTotalWaves();
-        console.log("Retrieved total wave count...", count.toNumber());
-
-        /*
-         * Execute the actual wave from your smart contract
-         */
-        const waveTxn = await wavePortalContract.wave("this is a message");
-        console.log("Mining...", waveTxn.hash);
-
-        await waveTxn.wait();
-        console.log("Mined -- ", waveTxn.hash);
-
-        count = await wavePortalContract.getTotalWaves();
-        console.log("Retrieved total wave count...", count.toNumber());
-      } else {
-        console.log("Ethereum object doesn't exist!");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   /*
    * Create a method that gets all waves from your contract
@@ -88,7 +53,7 @@ const useWave = () => {
          * Store our data in React State
          */
         setAllWaves(wavesCleaned);
-        console.log(wavesCleaned);
+        console.log(allWaves);
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -97,7 +62,7 @@ const useWave = () => {
     }
   };
 
-  return { wave, getAllWaves, allWaves };
+  return { allWaves, getAllWaves };
 };
 
-export default useWave;
+export default useGetAllWaves;

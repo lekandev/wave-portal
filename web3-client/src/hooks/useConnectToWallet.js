@@ -1,6 +1,8 @@
 import { useState } from "react";
+import useWave from "./useWave";
 
 const useConnectToWallet = () => {
+  const { getAllWaves } = useWave();
   /*
    * Just a state variable we use to store our user's public wallet.
    */
@@ -26,6 +28,7 @@ const useConnectToWallet = () => {
         const account = accounts[0];
         console.log("Found an authorized account:", account);
         setCurrentAccount(account);
+        getAllWaves();
       } else {
         console.log("No authorized account found");
       }
@@ -62,6 +65,6 @@ const useConnectToWallet = () => {
     currentAccount,
     connectWallet,
   };
-}
+};
 
 export default useConnectToWallet;
