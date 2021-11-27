@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import WavePortal from "../utils/WavePortal.json";
 
@@ -7,11 +7,11 @@ const useWave = () => {
    * All state property to store all waves
    */
   const [allWaves, setAllWaves] = useState([]);
-  /**
+  /*
    * Create a variable here that holds the contract address after you deploy!
    */
-  const contractAddress = "0x5922e00d3719adF57f30F704Cb3CbDB510310A67";
-  /**
+  const contractAddress = "0xE183e3Ef0E2D8D50450E6593399F73B9380917EE";
+  /*
    * Create a variable here that references the abi content!
    */
   const contractABI = WavePortal.abi;
@@ -35,7 +35,9 @@ const useWave = () => {
         /*
          * Execute the actual wave from your smart contract
          */
-        const waveTxn = await wavePortalContract.wave("this is a message");
+        const waveTxn = await wavePortalContract.wave(message, {
+          gasLimit: 300000,
+        });
         console.log("Mining...", waveTxn.hash);
 
         await waveTxn.wait();
@@ -97,7 +99,51 @@ const useWave = () => {
     }
   };
 
-  return { wave, getAllWaves, allWaves };
+  /**
+   * Listen in for emitter events!
+   */
+  useEffect(() => {
+    let wavePortalContract;
+
+    const onNewWave = (from, timestamp, message) => {
+      console.log("NewWave", from, timestamp, message);
+      setAllWaves((prevState) => [
+        ...prevState,
+        {
+          address: from,
+          timestamp: new Date(timestamp * 1000),
+          message: message,
+        },
+      ]);
+    };
+
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      wavePortalContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
+      wavePortalContract.on("NewWave", onNewWave);
+    }
+
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off("NewWave", onNewWave);
+      }
+    };
+  }, []);
+
+  // get message from input and store in message state
+  const [message, setMessage] = useState("");
+
+  const handleChange = (event) => {
+    setMessage(event.target.value);
+  };
+
+  return { wave, getAllWaves, allWaves, message, handleChange };
 };
 
 export default useWave;

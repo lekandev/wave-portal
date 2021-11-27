@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import useConnectToWallet from "./hooks/useConnectToWallet";
-import useWave from "./hooks/useWave";
+import useWave from "./hooks/useWave"
 
 export default function App() {
   const { checkIfWalletIsConnected, currentAccount, connectWallet } =
     useConnectToWallet();
 
-  const { wave, allWaves } = useWave();
+  const { wave, allWaves, message, handleChange } = useWave();
 
   useEffect(() => {
     checkIfWalletIsConnected();
@@ -23,7 +23,7 @@ export default function App() {
             <img
               src="/assets/profile.jpg"
               alt="profile"
-              class="profilePicture"
+              className="profilePicture"
             />
           </div>
 
@@ -39,9 +39,17 @@ export default function App() {
 
         <div className="bio">
           I am <span>Mohammed Kabir Hussaini (lekandev)</span>, a Fullstack and
-          mobile developer from Nigeria learning Web3 Connect your Ethereum
+          mobile developer from Nigeria learning Web3. Connect your Ethereum
           wallet (metamask) and wave at me!
         </div>
+
+        <input
+          type="text"
+          placeholder="Type a message and click the 'Wave at me' button"
+          className="messageInput"
+          value={message}
+          onChange={handleChange}
+        />
 
         <button className="waveButton" onClick={wave}>
           Wave at Me
@@ -56,16 +64,28 @@ export default function App() {
           </button>
         )}
 
+        <div className="messages">
+          <div className="message">
+            <div>Address: 0x1e341AA1D51d5D18c4AE1B9ae33523</div>
+            <div>
+              Time: Sat Nov 27 2021 17:30:34 GMT+0100 (West Africa Standard
+              Time)
+            </div>
+            <div>Message: sup sup sup</div>
+          </div>
+          <div className="message">
+            <div>Address: 0x1e341AA1D51d5D18c4AE1B9ae33523</div>
+            <div>
+              Time: Sat Nov 27 2021 17:30:34 GMT+0100 (West Africa Standard
+              Time)
+            </div>
+            <div>Message: sup sup sup</div>
+          </div>
+        </div>
+
         {allWaves.map((wave, index) => {
           return (
-            <div
-              key={index}
-              style={{
-                backgroundColor: "OldLace",
-                marginTop: "16px",
-                padding: "8px",
-              }}
-            >
+            <div key={index} className="message">
               <div>Address: {wave.address}</div>
               <div>Time: {wave.timestamp.toString()}</div>
               <div>Message: {wave.message}</div>

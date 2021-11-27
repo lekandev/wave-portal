@@ -1,8 +1,16 @@
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #45A29E;
+}
+
 .mainContainer {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 64px;
+  margin-top: 20px;
 }
 
 .dataContainer {
@@ -35,8 +43,8 @@
 }
 
 .profilePicture {
-  width: 225px;
-  height: 225px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
 }
 
@@ -61,6 +69,17 @@
   color: #66FCF1;
 }
 
+.messageInput {
+  height: 50px;
+  border: 1px solid #45A29E;
+  border-radius: 5px;
+  background-color: transparent;
+  padding-left: 10px;
+  outline: none;
+  margin: 10px 15px 0 15px;
+  color: #C5C6C7;
+}
+
 .waveButton {
   cursor: pointer;
   margin: 16px 15px 0 15px;
@@ -69,4 +88,23 @@
   border-radius: 5px;
   background-color: #1f2833;
   color: #66FCF1;
+}
+
+.messages {
+  width: 100%;
+  height: 110px;
+  overflow-y: scroll;
+}
+
+.messages::-webkit-scrollbar {
+  display: none;
+}
+
+.message {
+  background-color: #1f2833;
+  padding: 5px 8px;
+  margin: 10px 15px 0 15px;
+  border-radius: 5px;
+  color: #C5C6C7;
+  border-top: 3px solid #45A29E;
 }
