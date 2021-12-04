@@ -12,7 +12,9 @@ export default function App() {
 
   const getAllWaves = async () => {
     try {
-      if (window.ethereum) {
+      const { ethereum } = window;
+      
+      if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const wavePortalContract = new ethers.Contract(contractAddress, waveportal.abi, signer);
